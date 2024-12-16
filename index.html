@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- link the google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <!-- not the best font only for testing -->
+
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div id="wrapper">
+        <canvas id="game"></canvas>
+        <div id="menu">
+
+            <div class="main_text" id="piece_quote">“funny player text”</div> 
+
+
+            <div id="player_logos">
+                <span class="dot" id="dot_red"></span>
+                <span class="dot" id="dot_blue"></span>
+                <span class="dot" id="dot_green"></span>
+                <span class="dot" id="dot_orange"></span>
+            </div>
+        </div>
+        <div id="mask">
+            
+        </div>
+        <div class="main_text" id="player_num">P1</div> 
+        <div class="main_text" id="next_text">Press Enter to Finish</div> 
+        <div class="main_text" id="help_text">Character Select</div> 
+    </div>
+    <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+    <script src="client.js"></script>
+    <script src="crown.js"></script>
+    <script src="minigames/testgame.js"></script>
+    <script src="minigames/frogger.js"></script>
+    <script src="minigames/shell.js"></script>
+    <script src="minigames/car.js"></script>
+    <script src="minigames/hop.js"></script>
+    <script src="helper.js"></script>
+    <script src="random.js"></script>
+    <script src="board.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
