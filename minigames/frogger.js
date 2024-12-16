@@ -120,23 +120,31 @@ var froggerEnd;
             }
 
             if(actorsCollides(player, car)){
-                froggerEnd();
+                froggerEndClient();
             }
         });
         if(player.pos.y <= GRID_SIZE * 2){
-            froggerEnd();
+            froggerEndClient();
         }
         if(game_running){
             game.update();
         }
 
         if(time <= 0){
-            froggerEnd();
+            froggerEndClient();
         }
 
     }
 
+    function froggerEndClient(){
+        if(PIDS[cp] != client.pid){return;}else{
+            client.broadcastAll("frogger");
+            froggerEnd();
+        }
+    }
+
     froggerEnd = function(){
+
         cars.forEach((car)=>{
             game.destroy(car);
             delete car;

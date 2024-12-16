@@ -16,12 +16,12 @@ var testGameEnd;
 
         let gap = randFloatInRange(0.6, 0.7); // gap between the pipe (used for the bottom pipe)
 
-        let p = game.addActor("p", new RectGeometry(60, canvas.height * rate), {bottom: true});
+        let p = game.addActor("p", new RectGeometry((60/1366) * canvas.width, canvas.height * rate), {bottom: true});
         p.sprite.color = "red";
         p.pos.x = canvas.width;
         pipes.push(p);
 
-        p = game.addActor("p", new RectGeometry(60, canvas.height * (gap - rate)), {bottom: true});
+        p = game.addActor("p", new RectGeometry((60/1366) * canvas.width, canvas.height * (gap - rate)), {bottom: true});
         p.sprite.color = "red";
         p.pos.x = canvas.width;
         p.pos.y = canvas.height - p.sprite.scale.y;
@@ -38,7 +38,7 @@ var testGameEnd;
         timeActor.pos.x = canvas.width/2 - timeActor.scale.x/2; 
         timeActor.pos.y = canvas.height/4 - timeActor.scale.y/2;
 
-        player = game.addActor("player", new BoxGeometry(35, "purple"));
+        player = game.addActor("player", new BoxGeometry((35/1366) * canvas.width, "purple"));
         player.vel = {x: 0, y: 0};
         player.pos.x = canvas.width * 0.3;
         game.input.onKeyPressed("space", () =>{
@@ -67,10 +67,10 @@ var testGameEnd;
 
         
         pipes.forEach(pipe => {
-            pipe.pos.x -= 2;
+            pipe.pos.x -= (2/1366) * canvas.width;
             if(actorsCollides(player, pipe)){
                 console.log("HIT!");
-                testGameEnd();
+                testGameEndClient();
 
             }
         });
@@ -82,10 +82,18 @@ var testGameEnd;
         }
 
         if(time <= 0){
-            testGameEnd();
+            testGameEndClient();
         }
 
     }
+
+    function testGameEndClient(){
+        if(PIDS[cp] != client.pid){return;}else{
+            client.broadcastAll("testGame");
+            testGameEnd();
+        }
+    }
+
 
     testGameEnd = function(){
         pipes.forEach((pipe)=>{

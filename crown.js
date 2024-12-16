@@ -478,7 +478,7 @@ function VecSub(v1, v2){
 }
 
 function randFromArr(arr){
-    return arr[Math.floor(CROWN_RANDOM_FUNC()* arr.length)];
+    return arr[randInRange(0, arr.length+1)];
 }
 
 function randInRange(min, max){

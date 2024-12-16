@@ -282,10 +282,10 @@ function gameSelect(){
         console.log(i.paused)
 
         pause();
-        froggerInit(ctx);
+        minigames[randFromArr(Object.keys(minigames))].start(ctx);
     }
 
-    froggerUpdate();
+    minigames[randFromArr(Object.keys(minigames))].update();
     if(game_running){
         window.requestAnimationFrame(gameSelect);
     }else{
@@ -358,6 +358,7 @@ function sleep (time) {
 }
 
 function startTurn(){
+
     // clear the space bar
     disableSpace = 1;
     playerNum++;
@@ -384,6 +385,8 @@ function startTurn(){
     next_text.style.left =  (player.pos.x + player.scale.x/2 - next_text.clientWidth/2)+'px';
 
     player_num.innerHTML = "P" + (playerNum + 1);
+    cp = playerNum;
+    client.broadcastAll(`cp${cp}`);
     switch(playerNum){
         case 0:
             player_num.style.color = red;
@@ -398,6 +401,7 @@ function startTurn(){
             player_num.style.color = orange;
             break;
     }
+
 
     i.onKeyPressed("Enter", () => {
         game.destroy(mask);

@@ -93,7 +93,7 @@ var carEnd;
             }
 
             if(actorsCollides(player, car)){
-                carEnd();
+                carEndClient();
             }
         });
 
@@ -102,10 +102,18 @@ var carEnd;
         }
 
         if(time <= 0){
-            carEnd();
+            carEndClient();
         }
 
     }
+
+    function carEndClient(){
+        if(PIDS[cp] != client.pid){return;}else{
+            client.broadcastAll("car");
+            carEnd();
+        }
+    }
+
 
     carEnd = function(){
         cars.forEach((car)=>{

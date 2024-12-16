@@ -138,6 +138,15 @@ var shellGameEnd;
         game.update();
     }
 
+    
+    function shellGameEndClient(){
+        console.log("END1");
+        if(PIDS[cp] != client.pid){return;}else{
+            client.broadcastAll("shellGame");
+            shellGameEnd();
+        }
+    }
+
     shellGameEnd = function(){
         cups.forEach((cup)=>{
             game.destroy(cup);

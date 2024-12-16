@@ -19,6 +19,29 @@ const orange = "#FF9027";
 
 const black = "#000000";
 
+let minigames = {
+    "frogger": {
+        "start": froggerInit,
+        "update": froggerUpdate,
+        "end": froggerEnd
+    },
+    "testGame": {
+        "start": testGameInit,
+        "update": testGameUpdate,
+        "end": testGameEnd
+    },
+    // "shellGame": {
+    //     "start": shellGameInit,
+    //     "update": shellGameUpdate,
+    //     "end": shellGameEnd
+    // },
+    // "car": {
+    //     "start": carInit,
+    //     "update": carUpdate,
+    //     "end": carEnd
+    // }
+}
+
 // get canvas
 const canvas = document.querySelector("#game");
 canvas.width = window.innerWidth;
@@ -126,7 +149,10 @@ i.onKeyPressed("ArrowRight", ()=>{
 })
 
 i.onKeyPressed("space", ()=>{
+    //cp = p;
+    //client.broadcastAll(`cp${cp}`);
     p++;
+
     if(p ==2){
         game.backgroundColor = blue;
         player_num.innerHTML = "P2";
@@ -287,10 +313,24 @@ async function initClient(client) {
     }
 
     client.handleData = (d)=>{
+        if(d.substring(0,2) == "cp"){
+            cp = parseInt(d.slice(2));
+            if(PIDS[cp] != client.pid){
+                CROWN_DISABLE_INPUT;
+            }
+        }
+        if(d == "disable_input"){
+            CROWN_DISABLE_INPUT = true;
+            return;
+        }
         if(d.substring(0, 4) == "RAND"){
             seed = parseInt(d.slice(4));
             let r = new pseudoRandom(seed);
             CROWN_RANDOM_FUNC = r.next;
+            return;
+        }
+        if(minigames[d] !== undefined){
+            minigames[d].end();
             return;
         }
         console.log(d);
