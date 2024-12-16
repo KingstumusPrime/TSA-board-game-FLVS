@@ -1,5 +1,5 @@
 async function getPeers(peer){
-    const response = await fetch("http://127.0.0.1:443/myapp/peerjs/peers");
+    const response = await fetch("https://tsa-server-vx2k.onrender.com/myapp/peerjs/peers");
 
     const peersArr = await response.json();
     if(peer.id == peersArr[0]){
@@ -21,7 +21,7 @@ class Client {
     async init(){
         return await new Promise(async (resolve, reject) => {
             this.peer = await new Peer('', {
-                host: '127.0.0.1',
+                host: 'tsa-server-vx2k.onrender.com',
                 port: '443',
                 path: '/myapp',
                 key: 'peerjs'
